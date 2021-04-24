@@ -51,5 +51,9 @@ class ApiClient {
     await _dio.post("/task/magnet", data: {"link": link});
   }
 
+  Future<void> newDownloadTask(String link) async {
+    await _dio.post("/task/download/file", data: {"link": link});
+  }
+
   ApiClient._internal();
 }

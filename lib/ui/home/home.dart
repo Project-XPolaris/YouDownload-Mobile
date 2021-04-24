@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:youdownload/api/client.dart';
+import 'package:youdownload/components/new-download-dialog.dart';
 import 'package:youdownload/components/new-magnet-dialog.dart';
 import 'package:youdownload/components/task-info.dart';
 import 'package:youdownload/components/task-item.dart';
@@ -36,11 +37,30 @@ class HomePage extends StatelessWidget {
                             );
                           });
                     }
+                    if (value == "new_file") {
+                      showDialog(
+                          context: context,
+                          builder: (dialogContext) {
+                            return NewDownloadDialog(
+                              onCancel: () {
+                                Navigator.of(context).pop();
+                              },
+                              onCreate: (link) {
+                                ApiClient().newDownloadTask(link);
+                                Navigator.of(context).pop();
+                              },
+                            );
+                          });
+                    }
                   },
                   itemBuilder: (BuildContext context) => [
                     PopupMenuItem<String>(
                       value: "new_magnet",
                       child: Text('New magnet'),
+                    ),
+                    PopupMenuItem<String>(
+                      value: "new_file",
+                      child: Text('New download'),
                     )
                   ],
                   icon: Icon(Icons.more_vert),
