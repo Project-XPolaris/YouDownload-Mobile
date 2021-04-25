@@ -1,4 +1,5 @@
 import 'package:youdownload/api/client.dart';
+import 'package:duration/duration.dart';
 
 class Task {
   static String taskStatusEstimate = "Estimate";
@@ -59,13 +60,21 @@ class Task {
     data['CreateTime'] = this.createTime;
     return data;
   }
+
   stopTask() async {
     await ApiClient().stopTask(id);
   }
+
   startTask() async {
     await ApiClient().startTask(id);
   }
+
   deleteTask() async {
     await ApiClient().deleteTask(id);
+  }
+
+  getETAText() {
+    Duration dur = Duration(seconds: eta);
+    return printDuration(dur);
   }
 }

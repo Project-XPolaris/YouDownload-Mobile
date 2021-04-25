@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:youdownload/api/client.dart';
@@ -21,7 +22,7 @@ class HomePage extends StatelessWidget {
               title: Text("YouDownload"),
               actions: [
                 PopupMenuButton(
-                  onSelected: (value) {
+                  onSelected: (value) async {
                     if (value == "new_magnet") {
                       showDialog(
                           context: context,
@@ -52,15 +53,25 @@ class HomePage extends StatelessWidget {
                             );
                           });
                     }
+                    if (value == "new_torrent_file") {
+                      FilePickerResult result = await FilePicker.platform.pickFiles();
+                      if (result.files.single != null) {
+                        await ApiClient().newTorrentFileTask(result.files.single.path);
+                      }
+                    }
                   },
                   itemBuilder: (BuildContext context) => [
                     PopupMenuItem<String>(
                       value: "new_magnet",
-                      child: Text('New magnet'),
+                      child: Text('Task from magnet link'),
+                    ),
+                    PopupMenuItem<String>(
+                      value: "new_torrent_file",
+                      child: Text('Task from torrent file'),
                     ),
                     PopupMenuItem<String>(
                       value: "new_file",
-                      child: Text('New download'),
+                      child: Text('Task from download link'),
                     )
                   ],
                   icon: Icon(Icons.more_vert),

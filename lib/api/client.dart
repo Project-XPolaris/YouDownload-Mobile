@@ -50,7 +50,12 @@ class ApiClient {
   Future<void> newMagnetTask(String link) async {
     await _dio.post("/task/magnet", data: {"link": link});
   }
-
+  Future<void> newTorrentFileTask(String filepath) async {
+    var formData = FormData.fromMap({
+      'file': await MultipartFile.fromFile(filepath),
+    });
+    await _dio.post("/task/file", data: formData);
+  }
   Future<void> newDownloadTask(String link) async {
     await _dio.post("/task/download/file", data: {"link": link});
   }
