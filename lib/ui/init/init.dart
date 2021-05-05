@@ -78,7 +78,7 @@ class _InitPageState extends State<InitPage> {
           _onFinishClick();
         },
         backgroundColor: Colors.indigo,
-        child: Icon(Icons.chevron_right),
+        child: Icon(Icons.chevron_right,color: Colors.white,),
       ),
       body: FutureBuilder(
           future: _init(),

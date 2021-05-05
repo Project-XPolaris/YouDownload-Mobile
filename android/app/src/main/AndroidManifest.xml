@@ -2,8 +2,8 @@
     package="com.projectxpolaris.youdownload">
 
     <application
-        android:icon="@mipmap/ic_launcher"
-        android:label="youdownload"
+        android:icon="@mipmap/launcher_icon"
+        android:label="YouDownload"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
